@@ -53,3 +53,6 @@ WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHE
 Duration: 1.91658091545 seconds
 
 ```
+
+## TODO
+* Attache a signed bundle to Tangle (Send value transaction)
