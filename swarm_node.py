@@ -117,7 +117,7 @@ def send_transfer(tag, message, address, values, dict_tips):
         print "Do POW for this transaction ..."
         nonce = ''
         with tempfile.TemporaryFile() as tempf:
-            proc = subprocess.Popen(['python', 'tx_search_nonce.py', str(tx_tryte)], stdout=tempf)
+            proc = subprocess.Popen(['python', 'tx_search_nonce.py', str(tx_tryte), str(14)], stdout=tempf)
             proc.wait()
             tempf.seek(0)
             nonce = tempf.read().rstrip()
