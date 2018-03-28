@@ -15,6 +15,7 @@ from PoW import *
 DCURL_PATH = "./deps/dcurl/build/libdcurl.so"
 TXN_SECURITY_LEVEL = 2
 DEPTH = 7
+MWM = 14
 
 api = Iota(FULLNODE, seed = SEED)
 
@@ -130,7 +131,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         # Do PoW for this transaction
         print "Do POW for this transaction ..."
 
-        nonce = PoW_interface_search(PoWlib, tx_tryte, 14)
+        nonce = PoW_interface_search(PoWlib, tx_tryte, MWM)
         tx_tryte = insert_to_trytes(2646, 2673, str(nonce), tx_tryte)
 
         time_end_pow = time.time()
