@@ -1,6 +1,6 @@
 import ctypes
 import sys
-import _thread
+import thread
 import time
 from iota import TryteString
 

@@ -19,7 +19,8 @@ request_field = {
     "message" : message,
     "address" : address,
     "value" : value,
-    "tips_type" : TIPS_TYPE_IRI_REQULAR_ALGORITHM
+    "tips_type" : TIPS_TYPE_IRI_REQULAR_ALGORITHM,
+#    "debug" : 1
 }
 
 start = time.time()

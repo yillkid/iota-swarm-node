@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 import subprocess
 import tempfile
+import json
+import time
 
 import iota
-from iota import Iota, Address
+from iota import Iota, Address, TryteString
 from iota.crypto.signing import SignatureFragmentGenerator
 from iota.crypto.kerl.conv import convertToBytes, convertToTrits, \
   trits_to_trytes, trytes_to_trits
 
-from config import SEED
+from config import SEED, DEBUG
 
 TXN_SECURITY_LEVEL = 2
 DEPTH = 7
@@ -39,9 +41,10 @@ def get_tips(tips_type):
     if tips_type == 2:
 	return api.get_tips()
 
-def send_transfer(tag, message, address, values, dict_tips):
+def send_transfer(tag, message, address, values, dict_tips, debug=0):
     ## Set output transaction
     print ("Start to sransfer ... ")
+    time_start_send = time.time()
 
     propose_bundle = iota.ProposedBundle()
 
@@ -60,6 +63,7 @@ def send_transfer(tag, message, address, values, dict_tips):
         print "DEBUG values = " + str(values)
 
         print "Checking input balance ..."
+
         dict_inputs = api.get_inputs()
         if int(dict_inputs['totalBalance']) < int(values):
             print "Balance not enough"
@@ -86,7 +90,11 @@ def send_transfer(tag, message, address, values, dict_tips):
 
     # This will get the bundle hash
     print ("Bundle finalize ...")
+
+    time_start_bundle_finz = time.time()
     propose_bundle.finalize()
+    time_end_bundle_finz = time.time()
+    elapsed_bundle_finz = time_end_bundle_finz - time_start_bundle_finz
 
     ## Signing
     # If the transaction need sign, it will then sign-up the transaction
@@ -102,6 +110,8 @@ def send_transfer(tag, message, address, values, dict_tips):
     branch_hash = dict_tips['trunkTransaction']
 
     # Do PoW (attach to tangle)
+    elapsed_pow = 0
+    time_start_pow = time.time()
     for tx_tryte in trytes:
         # TODO: Timestamp
         # timestamp = None
@@ -123,6 +133,9 @@ def send_transfer(tag, message, address, values, dict_tips):
             nonce = tempf.read().rstrip()
 
             tx_tryte = insert_to_trytes(2646, 2673, str(nonce), tx_tryte) 
+            
+            time_end_pow = time.time()
+            elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
 
             print "Prepare to broadcast ..."
 
@@ -131,14 +144,26 @@ def send_transfer(tag, message, address, values, dict_tips):
             except Exception as e:
                 print "Error: " + str(e.context)
 
+    time_end_send = time.time()
+    elapsed_send = time_end_send - time_start_send
+
+    if debug == 1:
+        data = [ { 'platform' : 'pi3', 'total_time' : str(elapsed_send), 'elapsed_pow' : str(elapsed_pow), 'elqpsed_bundle_finished' : str(elapsed_bundle_finz)} ]
+        json_data = json.dumps(data)
+        
+#        attach_debug_message_to_tangle(json_data)
+
     return propose_bundle.hash
 
-tag = "YILLKID"
-message = "HELLO"
-address = "BXEOYAONFPBGKEUQZDUZZZODHWJDWHEOYY9AENYF9VNLXZHXBOODCOTYXW9MGGINTEJPLK9AGOPTPODVX"
-value = 1
+def attach_debug_message_to_tangle(data):
+    tag = "SWARMNODETESTINGDATA"
+    message = TryteString.from_string(data)
+    address = "BXEOYAONFPBGKEUQZDUZZZODHWJDWHEOYY9AENYF9VNLXZHXBOODCOTYXW9MGGINTEJPLK9AGOPTPODVX"
+    value = 0
 
-# Get tips
-#dict_tips = get_tips(0)
+    # Get tips
+    print "Attaching debug data to tangle ... " + str(data)
+    dict_tips = get_tips(0)
 
-#print send_transfer(tag, message, address, value, dict_tips)
+    print "Debug bundle = " + str(send_transfer(tag, message, address, value, dict_tips, 0))
+
