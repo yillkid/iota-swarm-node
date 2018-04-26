@@ -10,13 +10,12 @@ from iota.crypto.signing import SignatureFragmentGenerator
 from iota.crypto.kerl.conv import convertToBytes, convertToTrits, \
   trits_to_trytes, trytes_to_trits
 
-from config import SEED, DEBUG
+from config import SEED, FULLNODE
 
 TXN_SECURITY_LEVEL = 2
 DEPTH = 7
 
-api = Iota('http://node.deviceproof.org:14265', seed = SEED)
-# api = Iota('http://cryptoiota.win:14265', seed = SEED)
+api = Iota(FULLNODE, seed = SEED)
 
 def insert_to_trytes(index_start, index_end, str_insert, trytes):
     trytes = trytes[:index_start] + str_insert + trytes[index_end:]
@@ -150,6 +149,7 @@ def send_transfer(tag, message, address, values, dict_tips, debug=0):
     if debug == 1:
         data = [ { 'platform' : 'pi3', 'total_time' : str(elapsed_send), 'elapsed_pow' : str(elapsed_pow), 'elqpsed_bundle_finished' : str(elapsed_bundle_finz)} ]
         json_data = json.dumps(data)
+        print json_data
         
 #        attach_debug_message_to_tangle(json_data)
 

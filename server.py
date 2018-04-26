@@ -1,25 +1,42 @@
-import socket
+#!/usr/bin/env python
 import json
+
+from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+from optparse import OptionParser
 
 from swarm_node import send_transfer, get_tips, gen_a_address
 
-HOST = '0.0.0.0'
-PORT = 8080
+PORT = 8000
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
-s.listen(0)
+class RequestHandler(BaseHTTPRequestHandler):
 
-print 'Server start at: %s:%s' %(HOST, PORT)
-print 'wait for connection...'
-result = ""
-while True:
-    conn, addr = s.accept()
-    print 'Connected by ', addr
+    def _set_headers(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
 
-    while True:
-        data = conn.recv(1024)
-        request_command = json.loads(data)
+    def do_GET(self):
+        response = {
+            'status':'SUCCESS',
+            'data':'Hello I am a swarm node.'
+        }
+
+        self._set_headers()
+        self.wfile.write(json.dumps(response))
+
+    
+    def do_POST(self):
+        
+        request_path = self.path
+        
+        request_headers = self.headers
+        content_length = request_headers.getheaders('content-length')
+        length = int(content_length[0]) if content_length else 0
+        
+	request_data = self.rfile.read(length)
+	request_command = json.loads(request_data)
+
+        print "Get request data ... " + str(request_data)
 
         if request_command['command'] == "gen_a_address":
             result = gen_a_address()
@@ -34,8 +51,16 @@ while True:
             dict_tips = get_tips(int(request_command['tips_type']))
             result = send_transfer(request_command['tag'], request_command['message'], \
                      request_command['address'], int(request_command['value']), dict_tips, debug)
+        
+        print "Result ... " + str(result)
 
-        conn.send(str(result))
-        break
+        self._set_headers()
+        self.wfile.write(str(result))
+    
+def http_server():
 
-conn.close()
+    print "Listening on localhost:"  + str(PORT)
+    server = HTTPServer(('', PORT), RequestHandler)
+    server.serve_forever()
+
+http_server()
