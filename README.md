@@ -26,8 +26,7 @@ $ cp ./libdcurl.so iota_swarm_like_node/
 * Swarm-like node (server side):
 ```
 $ python server.py 
-Server start at: 0.0.0.0:8080
-wait for connection...
+Listening on localhost:8000
 ```
 
 * Generate a unused address:
@@ -56,5 +55,4 @@ Duration: 1.91658091545 seconds
 ```
 
 ## TODO
-* Attache a signed bundle to Tangle (Send value transaction)
-* Support HTTP protocol
+* Add [TangleID](https://github.com/TangleID/TangleID) module support.
