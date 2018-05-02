@@ -10,7 +10,7 @@ TIPS_TYPE_IRI_REQULAR_ALGORITHM = 0
 TIPS_TYPE_TWO_NULL_IOTA_TNX = 1
 
 tag = "PYTHONTEST"
-message = "HELLO"
+message = "iHELLO"
 address = "BXEOYAONFPBGKEUQZDUZZZODHWJDWHEOYY9AENYF9VNLXZHXBOODCOTYXW9MGGINTEJPLK9AGOPTPODVX"
 value = 0
 
@@ -31,7 +31,7 @@ start = time.time()
 
 print "Send send transfer command ... "
 
-req = urllib2.Request('http://localhost:8000')
+req = urllib2.Request(url)
 req.add_header('Content-Type', 'application/json')
 response = urllib2.urlopen(req, json.dumps(data))
 

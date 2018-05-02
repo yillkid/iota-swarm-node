@@ -16,7 +16,7 @@ start = time.time()
 
 print "Generating a unused address ... "
 
-req = urllib2.Request('http://localhost:8000')
+req = urllib2.Request(url)
 req.add_header('Content-Type', 'application/json')
 response = urllib2.urlopen(req, json.dumps(data))
 
