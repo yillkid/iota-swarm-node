@@ -40,7 +40,7 @@ def get_tips(tips_type):
     if tips_type == 2:
 	return api.get_tips()
 
-def send_transfer(tag, message, address, values, dict_tips, debug=0):
+def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     ## Set output transaction
     print ("Start to sransfer ... ")
     time_start_send = time.time()
@@ -52,7 +52,7 @@ def send_transfer(tag, message, address, values, dict_tips, debug=0):
          address = iota.Address(address),
          value = values,
          tag = iota.Tag(tag),
-         message = iota.TryteString(message)
+         message = TryteString.from_string(messages)
     )
 
     propose_bundle.add_transaction(txn_output)
