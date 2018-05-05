@@ -6,8 +6,6 @@ from optparse import OptionParser
 
 from swarm_node import send_transfer, get_tips, gen_a_address
 
-from modules.tangleid.main import load
-
 PORT = 8000
 
 class RequestHandler(BaseHTTPRequestHandler):
