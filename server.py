@@ -6,6 +6,8 @@ from optparse import OptionParser
 
 from swarm_node import send_transfer, get_tips, gen_a_address
 
+from modules.tangleid.main import load
+
 PORT = 8000
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -33,10 +35,19 @@ class RequestHandler(BaseHTTPRequestHandler):
         content_length = request_headers.getheaders('content-length')
         length = int(content_length[0]) if content_length else 0
         
-	request_data = self.rfile.read(length)
-	request_command = json.loads(request_data)
-
+        request_data = self.rfile.read(length)
+        
         print "Get request data ... " + str(request_data)
+	
+        request_command = json.loads(request_data)
+
+        if 'module' in request_command:
+            if request_command['module'] == "tangleid":
+                print "Result ... " + str(request_command['module'])
+                result = load(request_data)
+
+                self._set_headers()
+                self.wfile.write(str(result))
 
         if request_command['command'] == "gen_a_address":
             result = gen_a_address()
