@@ -6,6 +6,8 @@ from optparse import OptionParser
 
 from swarm_node import send_transfer, get_tips, generate_address
 
+from modules.tangleid import main as module_tangleid
+
 PORT = 8000
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -45,7 +47,6 @@ class RequestHandler(BaseHTTPRequestHandler):
                 result = load(request_data)
             else:
                 result = "Error: Bad request"
-
 
         if request_command['command'] == "generate_address":
             result = generate_address()
