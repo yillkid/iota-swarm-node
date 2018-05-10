@@ -4,7 +4,7 @@ import json
 import time
 
 import iota
-from iota import Iota, Address, TryteString
+from iota import Iota, Address, TryteString, Transaction
 from iota.crypto.signing import SignatureFragmentGenerator
 from iota.crypto.kerl.conv import convertToBytes, convertToTrits, \
   trits_to_trytes, trytes_to_trits
@@ -166,4 +166,24 @@ def attach_debug_message_to_tangle(data):
     dict_tips = get_tips(0)
 
     print "Debug bundle = " + str(send_transfer(tag, message, address, value, dict_tips, 0))
+
+def find_transactions_by_tag(data):
+
+    list_result = api.find_transactions(tags = [data])
+
+    return list_result
+
+def get_txn_msg(data):
+    message = ""
+
+    list_txn = api.get_trytes([data])
+    trytes_txn = str(list_txn['trytes'][0])
+    txn = Transaction.from_tryte_string(trytes_txn)
+
+    try:
+        message = TryteString(txn.signature_message_fragment).as_string()
+    except:
+        message = TryteString(txn.signature_message_fragment)
+
+    return message
 
