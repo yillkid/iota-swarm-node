@@ -1,6 +1,5 @@
 # IOTA Swarm Node
 
-
 ## Summary
 
 `iota-swarm-node` is a proof-of-concept implementation of IOTA Swarm node, that
@@ -9,7 +8,6 @@ allowing several swarm nodes behave as a full node.
 
 Most use cases for micropayments involve a single user or device interacting
 repeatedly with a few vendors.
-
 
 ## Prerequisites
 
@@ -24,14 +22,12 @@ Install official Python library for IOTA core:
 $ pip install pyota
 ```
 
-
 ## Build from scratch
 
 Ensure gcc or clang available in build environment and then execute:
 ```shell
 $ make
 ```
-
 
 ## Launch the service
 
@@ -64,7 +60,6 @@ Send send transfer command ...
 WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHEY
 Duration: 1.91658091545 seconds
 ```
-
 
 ## Licensing
 
