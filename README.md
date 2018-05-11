@@ -9,6 +9,7 @@ allowing several swarm nodes behave as a full node.
 Most use cases for micropayments involve a single user or device interacting
 repeatedly with a few vendors.
 
+
 ## Prerequisites
 
 Install dependent packages:
