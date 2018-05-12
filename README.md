@@ -32,6 +32,7 @@ $ make
 ## Launch the service
 
 * Swarm node (server side):
+
 ```shell
 $ python server.py 
 Listening on localhost:8000
