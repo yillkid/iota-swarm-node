@@ -1,5 +1,5 @@
-# IOTA swarm-like Node
-A IOTA swarm-like node proof of concepts (POC)
+# IOTA swarm Node
+A IOTA swarm node proof of concepts (POC)
 
 ## Pre-Installation:
 Dependency packages:
@@ -18,12 +18,12 @@ IOTA transaction POW utilities:
 $ git clone https://github.com/chenweiii/dcurl.git
 $ cd dcurl
 $ make check
-$ cp ./libdcurl.so iota_swarm_like_node/
+$ cp ./libdcurl.so iota_swarm_node/
 ```
 
 ## How to use:
 
-* Swarm-like node (server side):
+* Swarm node (server side):
 ```
 $ python server.py 
 Listening on localhost:8000
