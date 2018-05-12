@@ -4,7 +4,7 @@ import json
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 from optparse import OptionParser
 
-from swarm_node import send_transfer, get_tips, gen_a_address
+from swarm_node import send_transfer, get_tips, generate_address
 
 PORT = 8000
 
@@ -47,8 +47,8 @@ class RequestHandler(BaseHTTPRequestHandler):
                 self._set_headers()
                 self.wfile.write(str(result))
 
-        if request_command['command'] == "gen_a_address":
-            result = gen_a_address()
+        if request_command['command'] == "generate_address":
+            result = generate_address()
         elif request_command['command'] == "get_tips":
             result = get_tips(int(request_command['type']))
         elif request_command['command'] == "send_transfer":

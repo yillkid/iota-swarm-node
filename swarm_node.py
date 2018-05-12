@@ -23,7 +23,7 @@ def insert_to_trytes(index_start, index_end, str_insert, trytes):
     return trytes
 
 # Return a unused IOTA address
-def gen_a_address():
+def generate_address():
     print "Generating a unused address ..."
     return api.get_new_addresses(count = None, index = None)
 
@@ -84,7 +84,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
         # Send unspent inputs to
         print ("Setting unspent input to a new address ...")
-        unspent = iota.Address(gen_a_address()['addresses'][0])
+        unspent = iota.Address(generate_address()['addresses'][0])
         propose_bundle.send_unspent_inputs_to(unspent)
 
     # This will get the bundle hash

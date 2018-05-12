@@ -9,7 +9,7 @@ PORT = 8000
 url = str(HOST)+":"+str(PORT)
 
 data = {
-    "command" : "gen_a_address"
+    "command" : "generate_address"
 }
 
 start = time.time()
