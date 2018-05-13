@@ -18,7 +18,7 @@ IOTA transaction POW utilities:
 $ git clone https://github.com/chenweiii/dcurl.git
 $ cd dcurl
 $ make check
-$ cp ./libdcurl.so iota_swarm_node/
+$ cp ./libdcurl.so iota-swarm-node/
 ```
 
 ## How to use:
@@ -31,7 +31,7 @@ Listening on localhost:8000
 
 * Generate a unused address:
 ```
-$ python exanples/gen_a_unused_address.py
+$ python exanples/generate_address.py
 Generating a unused address ... 
 {u'addresses': [Address('OMAEMGRMASNBLYVFCRG9UARBBCWDIC9RGCOFTVAVJZDWISOHVMFLSW9ZL9FIJIHVVRYQLIMYBWEYP9WSX')]}
 Duration: 73.5027749538 seconds
