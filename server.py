@@ -43,9 +43,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             if request_command['module'] == "tangleid":
                 print "Result ... " + str(request_command['module'])
                 result = load(request_data)
+            else:
+                result = "Error: Bad request"
 
-                self._set_headers()
-                self.wfile.write(str(result))
 
         if request_command['command'] == "generate_address":
             result = generate_address()
@@ -60,6 +60,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             dict_tips = get_tips(int(request_command['tips_type']))
             result = send_transfer(request_command['tag'], request_command['message'], \
                      request_command['address'], int(request_command['value']), dict_tips, debug)
+        else:
+            result = "Error: Bad request"
         
         print "Result ... " + str(result)
 
