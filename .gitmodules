@@ -1,0 +1,3 @@
+[submodule "deps/dcurl"]
+	path = deps/dcurl
+	url = https://github.com/chenweiii/dcurl.git

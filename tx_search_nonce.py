@@ -4,7 +4,7 @@ import thread
 import time
 from iota import TryteString
 
-DCURL_PATH = "./libdcurl.so"
+DCURL_PATH = "./deps/dcurl/build/libdcurl.so"
 
 def load_PoW_library():
     libdcurl = ctypes.cdll.LoadLibrary(DCURL_PATH)

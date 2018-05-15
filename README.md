@@ -22,13 +22,14 @@ Install official Python library for IOTA Core:
 $ pip install pyota
 ```
 
-IOTA transaction PoW utilities:
+
+## Build from scratch
+
+Ensure gcc or clang available in build environment and then execute:
 ```shell
-$ git clone https://github.com/chenweiii/dcurl.git
-$ cd dcurl
-$ make check
-$ cp ./libdcurl.so iota-swarm-node/
+$ make
 ```
+
 
 ## Launch the service
 
@@ -40,7 +41,7 @@ Listening on localhost:8000
 
 * Generate a unused address:
 ```shell
-$ python exanples/generate_address.py
+$ python examples/generate_address.py
 Generating a unused address ... 
 {u'addresses': [Address('OMAEMGRMASNBLYVFCRG9UARBBCWDIC9RGCOFTVAVJZDWISOHVMFLSW9ZL9FIJIHVVRYQLIMYBWEYP9WSX')]}
 Duration: 73.5027749538 seconds
@@ -62,8 +63,6 @@ WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHE
 Duration: 1.91658091545 seconds
 ```
 
-## TODO
-* Add [TangleID](https://github.com/TangleID/TangleID) module support.
 
 ## Licensing
 
