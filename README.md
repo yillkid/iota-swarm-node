@@ -64,3 +64,9 @@ Duration: 1.91658091545 seconds
 
 ## TODO
 * Add [TangleID](https://github.com/TangleID/TangleID) module support.
+
+## Licensing
+
+iota-swarm-node is freely redistributable under the two-clause BSD License.
+Use of this source code is governed by a BSD-style license that can be found
+in the `LICENSE` file.
