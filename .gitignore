@@ -1,3 +1,5 @@
-libdcurl.so
+build/
 log.txt
 *.pyc
+*.o
+*.o.d
