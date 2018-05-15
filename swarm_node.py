@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import subprocess
-import tempfile
 import json
 import time
 
@@ -11,9 +10,12 @@ from iota.crypto.kerl.conv import convertToBytes, convertToTrits, \
   trits_to_trytes, trytes_to_trits
 
 from config import SEED, FULLNODE
+from PoW import *
 
+DCURL_PATH = "./deps/dcurl/build/libdcurl.so"
 TXN_SECURITY_LEVEL = 2
 DEPTH = 7
+MWM = 14
 
 api = Iota(FULLNODE, seed = SEED)
 
@@ -41,6 +43,10 @@ def get_tips(tips_type):
 	return api.get_tips()
 
 def send_transfer(tag, messages, address, values, dict_tips, debug=0):
+    ## Initialize PoW Library
+    PoWlib = PoW_load_library(DCURL_PATH)
+    PoW_interface_init(PoWlib)
+
     ## Set output transaction
     print ("Start to sransfer ... ")
     time_start_send = time.time()
@@ -124,24 +130,18 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
         # Do PoW for this transaction
         print "Do POW for this transaction ..."
-        nonce = ''
-        with tempfile.TemporaryFile() as tempf:
-            proc = subprocess.Popen(['python', 'tx_search_nonce.py', str(tx_tryte), str(14)], stdout=tempf)
-            proc.wait()
-            tempf.seek(0)
-            nonce = tempf.read().rstrip()
 
-            tx_tryte = insert_to_trytes(2646, 2673, str(nonce), tx_tryte) 
-            
-            time_end_pow = time.time()
-            elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
+        nonce = PoW_interface_search(PoWlib, tx_tryte, MWM)
+        tx_tryte = insert_to_trytes(2646, 2673, str(nonce), tx_tryte)
 
-            print "Prepare to broadcast ..."
+        time_end_pow = time.time()
+        elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
 
-	    try:
-   	        api.broadcast_transactions([tx_tryte[0:2673]])
-            except Exception as e:
-                print "Error: " + str(e.context)
+        print "Prepare to broadcast ..."
+	try:
+            api.broadcast_transactions([tx_tryte[0:2673]])
+        except Exception as e:
+            print "Error: " + str(e.context)
 
     time_end_send = time.time()
     elapsed_send = time_end_send - time_start_send
