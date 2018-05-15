@@ -2,10 +2,9 @@
 
 ## Summary
 
-iota-swarm-node is a proof-of-concept implementation of IOTA Swarm node, allowing
-embedded devices to run their micro edition of full nodes distributed on more than
-one device. That is, a swarm node is a device with software/hardware implementing
-an algorithm aiming for allowing several swarm nodes behave as a full node.
+`iota-swarm-node` is a proof-of-concept implementation of IOTA Swarm node, that
+is a device with software/hardware implementing an algorithm aiming for
+allowing several swarm nodes behave as a full node.
 
 Most use cases for micropayments involve a single user or device interacting
 repeatedly with a few vendors.
@@ -14,10 +13,11 @@ repeatedly with a few vendors.
 
 Install dependent packages:
 ```shell
-$ sudo apt-get install python-pip python-setuptools python-dev python3-dev build-essential libssl-dev libffi-dev
+$ sudo apt-get install python-pip python-setuptools python-dev python3-dev \
+                       build-essential libssl-dev libffi-dev
 ```
 
-Install official Python library for IOTA Core:
+Install official Python library for IOTA core:
 ```shell
 $ pip install pyota
 ```
@@ -66,6 +66,6 @@ Duration: 1.91658091545 seconds
 
 ## Licensing
 
-iota-swarm-node is freely redistributable under the two-clause BSD License.
+`iota-swarm-node` is freely redistributable under the two-clause BSD License.
 Use of this source code is governed by a BSD-style license that can be found
 in the `LICENSE` file.
