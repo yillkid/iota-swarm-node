@@ -57,10 +57,17 @@ def list_all_claims(data):
     uuid = data['uuid']
     uuid = uuid + "C"
 
-    #list_result = api.find_transactions(tags = [uuid])
-    list_result = find_transactions_by_tag(uuid)
+    list_claims = find_transactions_by_tag(uuid)
+    list_claims = list_claims['hashes']
 
-    return str(list_result)
+    if len(list_claims) == 0:
+        return 0
+
+    list_output = []
+    for obj in list_claims:
+        list_output.append(str(obj))
+
+    return str(list_output)
 
 def get_claim_info(data):
     data = json.loads(data)
