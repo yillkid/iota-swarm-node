@@ -6,7 +6,7 @@ from optparse import OptionParser
 
 from swarm_node import send_transfer, get_tips, generate_address
 
-from modules.tangleid import main as module_tangleid
+from extensions.tangleid import main as extension_tangleid
 
 PORT = 8000
 
@@ -41,9 +41,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 	
         request_command = json.loads(request_data)
 
-        if 'module' in request_command:
-            if request_command['module'] == "tangleid":
-                print "Result ... " + str(request_command['module'])
+        if 'extension' in request_command:
+            if request_command['extension'] == "tangleid":
+                print "Result ... " + str(request_command['extension'])
                 result = load(request_data)
             else:
                 result = "Error: Bad request"
