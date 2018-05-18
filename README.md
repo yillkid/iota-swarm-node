@@ -40,7 +40,7 @@ Listening on localhost:8000
 
 * Generate a unused address:
 ```shell
-$ python examples/generate_address.py
+$ python tests/generate_address.py
 Generating a unused address ... 
 {u'addresses': [Address('OMAEMGRMASNBLYVFCRG9UARBBCWDIC9RGCOFTVAVJZDWISOHVMFLSW9ZL9FIJIHVVRYQLIMYBWEYP9WSX')]}
 Duration: 73.5027749538 seconds
@@ -48,7 +48,7 @@ Duration: 73.5027749538 seconds
 
 * Get tips from full node
 ```shell
-$ python examples/get_tips.py
+$ python tests/get_tips.py
 Getting tips ...
 {u'duration': 484, u'branchTransaction': TransactionHash('QCPNKOXJXFERNNLTZZG9LBWDJQRLFIWDYNYQBHZJANJGXAADKNFTPWBWVDGHROVVVQWBKP9ROKRMZ9999'), u'trunkTransaction': TransactionHash('GEPJNFUNQGPDSFECJZGEWYYWYMGVWDCOELBKZQWILEUGGVHPNWFRLHNQHYKHCHPQWSQAXGYG9AIBA9999')}
 Duration: 0.960033893585 seconds
@@ -56,7 +56,7 @@ Duration: 0.960033893585 seconds
 
 * Send data (0 value transaction)
 ```shell
-$ python examples/send_data.py
+$ python tests/send_data.py
 Send send transfer command ... 
 WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHEY
 Duration: 1.91658091545 seconds
