@@ -2,4 +2,4 @@
 
 source common.sh
 
-POST{"extension":"tangleid","command":"login","uuid":"QQ9BCRDGJYWDHPTDNOPRULFWWG"}
+POST '{"extension":"tangleid","command":"login","uuid":"QQ9BCRDGJYWDHPTDNOPRULFWWG"}'
