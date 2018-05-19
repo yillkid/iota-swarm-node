@@ -46,23 +46,23 @@ class RequestHandler(BaseHTTPRequestHandler):
                 print "Result ... " + str(request_command['extension'])
                 result = extension_tangleid.load(request_data)
             else:
-                result = "Error: Bad request"
+                result = "Error: Invalid extension name."
         else:
-          if request_command['command'] == "generate_address":
-              result = generate_address()
-          elif request_command['command'] == "get_tips":
-              result = get_tips(int(request_command['type']))
-          elif request_command['command'] == "send_transfer":
-              if 'debug' not in request_command:
-                  debug = 0
-              else:
-                  debug = int(request_command['debug'])
+            if request_command['command'] == "generate_address":
+                result = generate_address()
+            elif request_command['command'] == "get_tips":
+                result = get_tips(int(request_command['type']))
+            elif request_command['command'] == "send_transfer":
+                if 'debug' not in request_command:
+                    debug = 0
+                else:
+                    debug = int(request_command['debug'])
 
-              dict_tips = get_tips(int(request_command['tips_type']))
-              result = send_transfer(request_command['tag'], request_command['message'], \
-                       request_command['address'], int(request_command['value']), dict_tips, debug)
-          else:
-            result = "Error: Bad request"
+                dict_tips = get_tips(int(request_command['tips_type']))
+                result = send_transfer(request_command['tag'], request_command['message'], \
+                         request_command['address'], int(request_command['value']), dict_tips, debug)
+            else:
+                result = "Invalid command API."
         
         print "Result ... " + str(result)
 
