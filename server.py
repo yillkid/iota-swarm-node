@@ -44,7 +44,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         if 'extension' in request_command:
             if request_command['extension'] == "tangleid":
                 print "Result ... " + str(request_command['extension'])
-                result = load(request_data)
+                result = extension_tangleid.load(request_data)
             else:
                 result = "Error: Bad request"
         else:
