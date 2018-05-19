@@ -29,6 +29,11 @@ Ensure gcc or clang available in build environment and then execute:
 $ make
 ```
 
+(Optional) run test suite:
+```shell
+$ make check
+```
+
 ## Launch the service
 
 * Swarm node (server side):
