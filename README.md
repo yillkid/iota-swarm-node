@@ -36,17 +36,17 @@ $ make check
 
 ## Launch the service
 
-* Swarm node (server side):
+* Launch swarm node as server:
 
 ```shell
 $ python server.py 
 Listening on localhost:8000
 ```
 
-* Generate a unused address:
+* Generate an unused address:
 ```shell
 $ python tests/generate_address.py
-Generating a unused address ... 
+Generating an unused address ...
 {u'addresses': [Address('OMAEMGRMASNBLYVFCRG9UARBBCWDIC9RGCOFTVAVJZDWISOHVMFLSW9ZL9FIJIHVVRYQLIMYBWEYP9WSX')]}
 Duration: 73.5027749538 seconds
 ``` 

@@ -24,9 +24,9 @@ def insert_to_trytes(index_start, index_end, str_insert, trytes):
 
     return trytes
 
-# Return a unused IOTA address
+# Return an unused IOTA address
 def generate_address():
-    print "Generating a unused address ..."
+    print "Generating an unused address ..."
     return api.get_new_addresses(count = None, index = None)
 
 # Get transaction tips

@@ -15,7 +15,7 @@ data = {
 
 start = time.time()
 
-print "Generating a unused address ... "
+print "Generating an unused address ... "
 
 req = urllib2.Request(url)
 req.add_header('Content-Type', 'application/json')
