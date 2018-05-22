@@ -41,28 +41,21 @@ class RequestHandler(BaseHTTPRequestHandler):
 	
         request_command = json.loads(request_data)
 
-        if 'extension' in request_command:
-            if request_command['extension'] == "tangleid":
-                print "Result ... " + str(request_command['extension'])
-                result = extension_tangleid.load(request_data)
+        if request_command['command'] == "generate_address":
+            result = generate_address()
+        elif request_command['command'] == "get_tips":
+            result = get_tips(int(request_command['type']))
+        elif request_command['command'] == "send_transfer":
+            if 'debug' not in request_command:
+                debug = 0
             else:
-                result = "Error: Invalid extension name."
-        else:
-            if request_command['command'] == "generate_address":
-                result = generate_address()
-            elif request_command['command'] == "get_tips":
-                result = get_tips(int(request_command['type']))
-            elif request_command['command'] == "send_transfer":
-                if 'debug' not in request_command:
-                    debug = 0
-                else:
-                    debug = int(request_command['debug'])
+                debug = int(request_command['debug'])
 
-                dict_tips = get_tips(int(request_command['tips_type']))
-                result = send_transfer(request_command['tag'], request_command['message'], \
-                         request_command['address'], int(request_command['value']), dict_tips, debug)
-            else:
-                result = "Invalid command API."
+            dict_tips = get_tips(int(request_command['tips_type']))
+            result = send_transfer(request_command['tag'], request_command['message'], \
+                     request_command['address'], int(request_command['value']), dict_tips, debug)
+        else:
+            result = extension_tangleid.load(request_data)
         
         print "Result ... " + str(result)
 
