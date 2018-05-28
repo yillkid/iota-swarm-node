@@ -178,15 +178,20 @@ def find_transactions_by_tag(data):
 
 def get_txn_msg(data):
     message = ""
+    list_txn = []
 
-    list_txn = api.get_trytes([data])
+    try:
+        list_txn = api.get_trytes([data])
+    except:
+        return ""
+
     trytes_txn = str(list_txn['trytes'][0])
     txn = Transaction.from_tryte_string(trytes_txn)
 
     try:
         message = TryteString(txn.signature_message_fragment).as_string()
     except:
-        message = TryteString(txn.signature_message_fragment)
+        return ""
 
     return message
 
