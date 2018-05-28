@@ -60,9 +60,6 @@ def list_all_claims(data):
     list_claims = find_transactions_by_tag(uuid)
     list_claims = list_claims['hashes']
 
-    if len(list_claims) == 0:
-        return 0
-
     list_output = []
     for obj in list_claims:
         list_output.append(str(obj))
@@ -116,7 +113,6 @@ def get_all_notifies(data):
     uuid = data['uuid']
     uuid = uuid + "M"
 
-    #list_result = api.find_transactions(tags = [uuid])
     list_result = find_transactions_by_tag(uuid)
 
     return str(list_result)
