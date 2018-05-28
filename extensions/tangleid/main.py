@@ -58,6 +58,10 @@ def list_all_claims(data):
     uuid = uuid + "C"
 
     list_claims = find_transactions_by_tag(uuid)
+
+    if len(list_claims) == 0:
+        return []
+
     list_claims = list_claims['hashes']
 
     list_output = []
@@ -113,9 +117,18 @@ def get_all_notifies(data):
     uuid = data['uuid']
     uuid = uuid + "M"
 
-    list_result = find_transactions_by_tag(uuid)
+    list_claims = find_transactions_by_tag(uuid)
 
-    return str(list_result)
+    if len(list_claims) == 0:
+        return []
+
+    list_claims = list_claims['hashes']
+
+    list_output = []
+    for obj in list_claims:
+        list_output.append(str(obj))
+
+    return str(list_output)
 
 def revoke_claim(data):
     data = json.loads(data)

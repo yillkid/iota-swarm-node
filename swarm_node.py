@@ -169,7 +169,10 @@ def attach_debug_message_to_tangle(data):
 
 def find_transactions_by_tag(data):
 
-    list_result = api.find_transactions(tags = [data])
+    try:
+        list_result = api.find_transactions(tags = [data])
+    except:
+        return []
 
     return list_result
 
