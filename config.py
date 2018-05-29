@@ -1,2 +1,2 @@
-FULLNODE = "http://node.deviceproof.org:14265" # http://cryptoiota.win:14265 
+FULLNODE = "https://node.deviceproof.org"
 SEED = 'AMRWQP9BUMJALJHBXUCHOD9HFFD9LGTGEAWMJWWXSDVOF9PI9YGJAPBQLQUOMNYEQCZPGCTHGVNNAPGHA'
