@@ -14,7 +14,7 @@ $(DCURL_LIB): $(DCURL_DIR)
 TESTS += $(wildcard tests/*.py)
 TESTS += $(wildcard tests/tangleid/*.sh)
 
-check: server.py
+check: server.py $(DCURL_LIB)
 	@ TMP_PID=`mktemp /tmp/server_pid.XXXXXX`; \
 	echo "Running test suite..." ; \
 	( python $^ & echo $$! > $${TMP_PID} ); \
