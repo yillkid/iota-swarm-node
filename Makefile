@@ -1,5 +1,5 @@
 DCURL_DIR := deps/dcurl
-DCURL_LIB := $(DCURL_DIR)/deps/dcurl/build/libdcurl.so
+DCURL_LIB := $(DCURL_DIR)/build/libdcurl.so
 DEPS += $(DCURL_LIB)
 
 all: $(DEPS)
