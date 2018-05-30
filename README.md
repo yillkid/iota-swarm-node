@@ -61,7 +61,7 @@ Duration: 0.960033893585 seconds
 
 * Send data (0 value transaction)
 ```shell
-$ python tests/send_data.py
+$ python tests/send_transfer.py
 Send send transfer command ... 
 WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHEY
 Duration: 1.91658091545 seconds
