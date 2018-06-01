@@ -68,7 +68,7 @@ def list_all_claims(data):
     for obj in list_claims:
         list_output.append(str(obj))
 
-    return str(list_output)
+    return str(json.dumps(list_output))
 
 def get_claim_info(data):
     data = json.loads(data)
