@@ -152,8 +152,8 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         print json_data
         
 #        attach_debug_message_to_tangle(json_data)
-
-    return propose_bundle.hash
+    obj_txn = api.find_transactions(bundles = [propose_bundle.hash])
+    return str(obj_txn['hashes'][0])
 
 def attach_debug_message_to_tangle(data):
     tag = "SWARMNODETESTINGDATA"
