@@ -2,6 +2,7 @@ import ctypes
 import sys
 from iota import TryteString
 
+
 def PoW_load_library(DCURL_PATH):
     try:
         libdcurl = ctypes.cdll.LoadLibrary(DCURL_PATH)
@@ -9,16 +10,19 @@ def PoW_load_library(DCURL_PATH):
         libdcurl.dcurl_entry.argtypes = [ctypes.c_char_p, ctypes.c_int]
         libdcurl.dcurl_entry.restype = ctypes.c_char_p
         return libdcurl
-    except:
+    except BaseException:
         return None
 
+
 def PoW_interface_init(lib):
-    if (lib) != None:
+    if (lib) is not None:
         lib.dcurl_init(1, 0)
 
-# return nonce 
+# return nonce
+
+
 def PoW_interface_search(lib, tryte, mwm):
-    if lib != None:
+    if lib is not None:
         # Do the PoW
         ctryte = str(tryte).encode('ascii')
         ret = lib.dcurl_entry(ctryte, mwm)

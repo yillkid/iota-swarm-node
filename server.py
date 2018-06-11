@@ -10,6 +10,7 @@ from extensions.tangleid import main as extension_tangleid
 
 PORT = 8000
 
+
 class RequestHandler(BaseHTTPRequestHandler):
 
     def _set_headers(self):
@@ -19,26 +20,25 @@ class RequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         response = {
-            'status':'SUCCESS',
-            'data':'Hello I am a swarm node.'
+            'status': 'SUCCESS',
+            'data': 'Hello I am a swarm node.'
         }
 
         self._set_headers()
         self.wfile.write(json.dumps(response))
 
-    
     def do_POST(self):
-        
+
         request_path = self.path
-        
+
         request_headers = self.headers
         content_length = request_headers.getheaders('content-length')
         length = int(content_length[0]) if content_length else 0
-        
+
         request_data = self.rfile.read(length)
-        
+
         print "Get request data ... " + str(request_data)
-	
+
         request_command = json.loads(request_data)
 
         if request_command['command'] == "generate_address":
@@ -52,20 +52,23 @@ class RequestHandler(BaseHTTPRequestHandler):
                 debug = int(request_command['debug'])
 
             dict_tips = get_tips(int(request_command['tips_type']))
-            result = send_transfer(request_command['tag'], request_command['message'], \
-                     request_command['address'], int(request_command['value']), dict_tips, debug)
+            result = send_transfer(
+                request_command['tag'], request_command['message'], request_command['address'], int(
+                    request_command['value']), dict_tips, debug)
         else:
             result = extension_tangleid.load(request_data)
-        
+
         print "Result ... " + str(result)
 
         self._set_headers()
         self.wfile.write(str(result))
-    
+
+
 def http_server():
 
-    print "Listening on localhost:"  + str(PORT)
+    print "Listening on localhost:" + str(PORT)
     server = HTTPServer(('', PORT), RequestHandler)
     server.serve_forever()
+
 
 http_server()

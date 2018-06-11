@@ -5,9 +5,10 @@ from swarm_node import get_tips, send_transfer, \
 
 address = "BXEOYAONFPBGKEUQZDUZZZODHWJDWHEOYY9AENYF9VNLXZHXBOODCOTYXW9MGGINTEJPLK9AGOPTPODVX"
 
+
 def load(data):
     request_data = json.loads(data)
-    
+
     if request_data['command'] == "new_claim":
         bundle_hash = new_claim(data)
         return bundle_hash
@@ -39,17 +40,19 @@ def load(data):
         result = new_group(data)
         return result
 
+
 def new_claim(data):
     data = json.loads(data)
 
-    ## Get tips
+    # Get tips
     dict_tips = get_tips(0)
 
-    ## Set output transaction
+    # Set output transaction
     tag = data['uuid'] + "C"
     response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
 
     return str(response)
+
 
 def list_all_claims(data):
     data = json.loads(data)
@@ -70,6 +73,7 @@ def list_all_claims(data):
 
     return str(json.dumps(list_output))
 
+
 def get_claim_info(data):
     data = json.loads(data)
 
@@ -77,6 +81,7 @@ def get_claim_info(data):
     result = get_txn_msg(txn_hash)
 
     return result
+
 
 def login(data):
     data = json.loads(data)
@@ -87,29 +92,32 @@ def login(data):
 
     return str(list_result)
 
+
 def new_user(data):
     data = json.loads(data)
 
-    ## Get tips
+    # Get tips
     dict_tips = get_tips(0)
 
-    ## Set output transaction
+    # Set output transaction
     tag = data['uuid'] + "I"
     response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
 
     return str(response)
 
+
 def send_notify(data):
     data = json.loads(data)
 
-    ## Get tips
+    # Get tips
     dict_tips = get_tips(0)
 
-    ## Set output transaction
+    # Set output transaction
     tag = data['uuid'] + "M"
     response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
 
     return str(response)
+
 
 def get_all_notifies(data):
     data = json.loads(data)
@@ -130,17 +138,19 @@ def get_all_notifies(data):
 
     return str(list_output)
 
+
 def revoke_claim(data):
     data = json.loads(data)
 
-    ## Get tips
+    # Get tips
     dict_tips = get_tips(0)
 
-    ## Set output transaction
+    # Set output transaction
     tag = data['uuid'] + "R"
     response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
 
     return str(response)
+
 
 def get_all_revoke_claims(data):
     data = json.loads(data)
@@ -153,13 +163,14 @@ def get_all_revoke_claims(data):
 
     return str(list_result)
 
+
 def new_group(data):
     data = json.loads(data)
 
-    ## Get tips
+    # Get tips
     dict_tips = get_tips(0)
 
-    ## Set output transaction
+    # Set output transaction
     tag = data['uuid'] + "G"
     response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
 

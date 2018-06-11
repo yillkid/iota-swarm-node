@@ -7,10 +7,10 @@ import urllib2
 HOST = 'http://127.0.0.1'
 PORT = 8000
 
-url = str(HOST)+":"+str(PORT)
+url = str(HOST) + ":" + str(PORT)
 
 data = {
-    "command" : "generate_address"
+    "command": "generate_address"
 }
 
 start = time.time()

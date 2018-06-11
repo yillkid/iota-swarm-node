@@ -7,7 +7,7 @@ import iota
 from iota import Iota, Address, TryteString, Transaction
 from iota.crypto.signing import SignatureFragmentGenerator
 from iota.crypto.kerl.conv import convertToBytes, convertToTrits, \
-  trits_to_trytes, trytes_to_trits
+    trits_to_trytes, trytes_to_trits
 
 from config import SEED, FULLNODE
 from PoW import *
@@ -17,7 +17,8 @@ TXN_SECURITY_LEVEL = 2
 DEPTH = 7
 MWM = 9
 
-api = Iota(FULLNODE, seed = SEED)
+api = Iota(FULLNODE, seed=SEED)
+
 
 def insert_to_trytes(index_start, index_end, str_insert, trytes):
     trytes = trytes[:index_start] + str_insert + trytes[index_end:]
@@ -25,29 +26,36 @@ def insert_to_trytes(index_start, index_end, str_insert, trytes):
     return trytes
 
 # Return an unused IOTA address
+
+
 def generate_address():
     print "Generating an unused address ..."
-    return api.get_new_addresses(count = None, index = None)
+    return api.get_new_addresses(count=None, index=None)
 
 # Get transaction tips
 # Parameter:
 # 0: Request getTransactionToApprove RestfulAPI to fullnode
 # 1: Return two null transaction
 # 2: Get tips list from fullnode
+
+
 def get_tips(tips_type):
     if tips_type == 0:
         return api.get_transactions_to_approve(DEPTH)
     if tips_type == 1:
-        return {'trunkTransaction':iota.Hash(''), 'branchTransaction':iota.Hash('')}
+        return {
+            'trunkTransaction': iota.Hash(''),
+            'branchTransaction': iota.Hash('')}
     if tips_type == 2:
-	return api.get_tips()
+        return api.get_tips()
+
 
 def send_transfer(tag, messages, address, values, dict_tips, debug=0):
-    ## Initialize PoW Library
+    # Initialize PoW Library
     PoWlib = PoW_load_library(DCURL_PATH)
     PoW_interface_init(PoWlib)
 
-    ## Set output transaction
+    # Set output transaction
     print ("Start to sransfer ... ")
     time_start_send = time.time()
 
@@ -55,10 +63,10 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
     print ("Setting output transaction ...")
     txn_output = iota.ProposedTransaction(
-         address = iota.Address(address),
-         value = values,
-         tag = iota.Tag(tag),
-         message = TryteString.from_string(messages)
+        address=iota.Address(address),
+        value=values,
+        tag=iota.Tag(tag),
+        message=TryteString.from_string(messages)
     )
 
     propose_bundle.add_transaction(txn_output)
@@ -74,7 +82,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
             print "Balance not enough"
             return 0
 
-    ## Setting intput transaction
+    # Setting intput transaction
     if int(values) > 0:
         print ("Setting input transaction ...")
         value_input = 0
@@ -101,7 +109,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     time_end_bundle_finz = time.time()
     elapsed_bundle_finz = time_end_bundle_finz - time_start_bundle_finz
 
-    ## Signing
+    # Signing
     # If the transaction need sign, it will then sign-up the transaction
     # to fill up signature fragements
     if int(values) > 0:
@@ -110,7 +118,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
     trytes = propose_bundle.as_tryte_strings()
 
-    ## Get tips by getTransactionsToApprove
+    # Get tips by getTransactionsToApprove
     trunk_hash = dict_tips['branchTransaction']
     branch_hash = dict_tips['trunkTransaction']
 
@@ -124,9 +132,9 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         # timestamp_upper_bound = None
 
         # Tips insert - trunk
-        tx_tryte = insert_to_trytes(2430, 2511, str(trunk_hash), tx_tryte) 
-        # Tips insert - branch 
-        tx_tryte = insert_to_trytes(2511, 2592, str(branch_hash), tx_tryte) 
+        tx_tryte = insert_to_trytes(2430, 2511, str(trunk_hash), tx_tryte)
+        # Tips insert - branch
+        tx_tryte = insert_to_trytes(2511, 2592, str(branch_hash), tx_tryte)
 
         # Do PoW for this transaction
         print "Do POW for this transaction ..."
@@ -138,7 +146,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
 
         print "Prepare to broadcast ..."
-	try:
+        try:
             api.broadcast_transactions([tx_tryte[0:2673]])
         except Exception as e:
             print "Error: " + str(e.context)
@@ -147,13 +155,15 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     elapsed_send = time_end_send - time_start_send
 
     if debug == 1:
-        data = [ { 'platform' : 'pi3', 'total_time' : str(elapsed_send), 'elapsed_pow' : str(elapsed_pow), 'elqpsed_bundle_finished' : str(elapsed_bundle_finz)} ]
+        data = [{'platform': 'pi3', 'total_time': str(elapsed_send), 'elapsed_pow': str(
+            elapsed_pow), 'elqpsed_bundle_finished': str(elapsed_bundle_finz)}]
         json_data = json.dumps(data)
         print json_data
-        
+
 #        attach_debug_message_to_tangle(json_data)
-    obj_txn = api.find_transactions(bundles = [propose_bundle.hash])
+    obj_txn = api.find_transactions(bundles=[propose_bundle.hash])
     return str(obj_txn['hashes'][0])
+
 
 def attach_debug_message_to_tangle(data):
     tag = "SWARMNODETESTINGDATA"
@@ -165,16 +175,19 @@ def attach_debug_message_to_tangle(data):
     print "Attaching debug data to tangle ... " + str(data)
     dict_tips = get_tips(0)
 
-    print "Debug bundle = " + str(send_transfer(tag, message, address, value, dict_tips, 0))
+    print "Debug bundle = " + \
+        str(send_transfer(tag, message, address, value, dict_tips, 0))
+
 
 def find_transactions_by_tag(data):
 
     try:
-        list_result = api.find_transactions(tags = [data])
-    except:
+        list_result = api.find_transactions(tags=[data])
+    except BaseException:
         return []
 
     return list_result
+
 
 def get_txn_msg(data):
     message = ""
@@ -182,7 +195,7 @@ def get_txn_msg(data):
 
     try:
         list_txn = api.get_trytes([data])
-    except:
+    except BaseException:
         return ""
 
     trytes_txn = str(list_txn['trytes'][0])
@@ -190,8 +203,7 @@ def get_txn_msg(data):
 
     try:
         message = TryteString(txn.signature_message_fragment).as_string()
-    except:
+    except BaseException:
         return ""
 
     return message
-

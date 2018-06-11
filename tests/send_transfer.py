@@ -15,16 +15,16 @@ message = "iHELLO"
 address = "BXEOYAONFPBGKEUQZDUZZZODHWJDWHEOYY9AENYF9VNLXZHXBOODCOTYXW9MGGINTEJPLK9AGOPTPODVX"
 value = 0
 
-url = str(HOST)+":"+str(PORT)
+url = str(HOST) + ":" + str(PORT)
 
 data = {
-    'command' : 'send_transfer',
-    'tag' : tag,
-    'message' : message,
-    'address' : address,
-    'value' : value,
-    'tips_type' : TIPS_TYPE_IRI_REQULAR_ALGORITHM,
-    'debug' : 1
+    'command': 'send_transfer',
+    'tag': tag,
+    'message': message,
+    'address': address,
+    'value': value,
+    'tips_type': TIPS_TYPE_IRI_REQULAR_ALGORITHM,
+    'debug': 1
 }
 
 
