@@ -15,7 +15,7 @@ from PoW import *
 DCURL_PATH = "./deps/dcurl/build/libdcurl.so"
 TXN_SECURITY_LEVEL = 2
 DEPTH = 7
-MWM = 14
+MWM = 9
 
 api = Iota(FULLNODE, seed = SEED)
 
