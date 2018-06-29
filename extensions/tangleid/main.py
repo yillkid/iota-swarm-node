@@ -49,7 +49,7 @@ def new_claim(data):
 
     # Set output transaction
     tag = data['uuid'] + "C"
-    response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
+    response = send_transfer(tag, json.dumps(data), address, 0, dict_tips, debug=0)
 
     return str(response)
 
@@ -101,7 +101,7 @@ def new_user(data):
 
     # Set output transaction
     tag = data['uuid'] + "I"
-    response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
+    response = send_transfer(tag, json.dumps(data), address, 0, dict_tips, debug=0)
 
     return str(response)
 
@@ -114,7 +114,7 @@ def send_notify(data):
 
     # Set output transaction
     tag = data['uuid'] + "M"
-    response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
+    response = send_transfer(tag, json.dumps(data), address, 0, dict_tips, debug=0)
 
     return str(response)
 
@@ -147,7 +147,7 @@ def revoke_claim(data):
 
     # Set output transaction
     tag = data['uuid'] + "R"
-    response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
+    response = send_transfer(tag, json.dumps(data), address, 0, dict_tips, debug=0)
 
     return str(response)
 
@@ -172,6 +172,6 @@ def new_group(data):
 
     # Set output transaction
     tag = data['uuid'] + "G"
-    response = send_transfer(tag, str(data), address, 0, dict_tips, debug=0)
+    response = send_transfer(tag, json.dumps(data), address, 0, dict_tips, debug=0)
 
     return str(response)
