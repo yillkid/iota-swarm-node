@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import json
 
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from optparse import OptionParser
 
 from swarm_node import send_transfer, get_tips, generate_address
@@ -32,12 +32,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         request_path = self.path
 
         request_headers = self.headers
-        content_length = request_headers.getheaders('content-length')
-        length = int(content_length[0]) if content_length else 0
-
+        content_length = request_headers.get("Content-length")
+        length = int(content_length) if content_length else 0
         request_data = self.rfile.read(length)
-
-        print "Get request data ... " + str(request_data)
+        request_data = request_data.decode('utf-8')
+        print("Get request data ... %s" % (str(request_data)))
 
         request_command = json.loads(request_data)
 
@@ -58,15 +57,15 @@ class RequestHandler(BaseHTTPRequestHandler):
         else:
             result = extension_tangleid.load(request_data)
 
-        print "Result ... " + str(result)
+        print("Result ... %s" % (str(result)))
 
         self._set_headers()
-        self.wfile.write(str(result))
+        self.wfile.write(str(result).encode('utf-8'))
 
 
 def http_server():
 
-    print "Listening on localhost:" + str(PORT)
+    print("Listening on localhost: %s" % (str(PORT)))
     server = HTTPServer(('', PORT), RequestHandler)
     server.serve_forever()
 

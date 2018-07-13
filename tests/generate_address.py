@@ -2,7 +2,8 @@
 import time
 import json
 
-import urllib2
+import urllib.request
+import urllib.parse
 
 HOST = 'http://127.0.0.1'
 PORT = 8000
@@ -15,15 +16,16 @@ data = {
 
 start = time.time()
 
-print "Generating an unused address ... "
+print("Generating an unused address ... ")
 
-req = urllib2.Request(url)
+req = urllib.request.Request(url)
 req.add_header('Content-Type', 'application/json')
-response = urllib2.urlopen(req, json.dumps(data))
 
-print "Response ... " + str(response.read())
+response = urllib.request.urlopen(req, json.dumps(data).encode('utf-8'))
+
+print("Response ... %" % (str(response.read())))
 
 end = time.time()
 elapsed = end - start
 
-print "Duration: " + str(elapsed) + " seconds"
+print("Duration: %s seconds" % (str(elapsed)))

@@ -29,7 +29,7 @@ def insert_to_trytes(index_start, index_end, str_insert, trytes):
 
 
 def generate_address():
-    print "Generating an unused address ..."
+    print("Generating an unused address ...")
     return api.get_new_addresses(count=None, index=None)
 
 # Get transaction tips
@@ -56,12 +56,12 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     PoW_interface_init(PoWlib)
 
     # Set output transaction
-    print ("Start to sransfer ... ")
+    print("Start to sransfer ... ")
     time_start_send = time.time()
 
     propose_bundle = iota.ProposedBundle()
 
-    print ("Setting output transaction ...")
+    print("Setting output transaction ...")
     txn_output = iota.ProposedTransaction(
         address=iota.Address(address),
         value=values,
@@ -73,18 +73,18 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
     # Get input address
     if int(values) > 0:
-        print "DEBUG values = " + str(values)
+        print("DEBUG values = %s" % (str(values)))
 
-        print "Checking input balance ..."
+        print("Checking input balance ...")
 
         dict_inputs = api.get_inputs()
         if int(dict_inputs['totalBalance']) < int(values):
-            print "Balance not enough"
+            print("Balance not enough")
             return 0
 
     # Setting intput transaction
     if int(values) > 0:
-        print ("Setting input transaction ...")
+        print("Setting input transaction ...")
         value_input = 0
         index_input = 0
         while (int(value_input) < int(values)):
@@ -97,12 +97,12 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
             value_input = value_input + int(dict_inputs['inputs'][0].balance)
 
         # Send unspent inputs to
-        print ("Setting unspent input to a new address ...")
+        print("Setting unspent input to a new address ...")
         unspent = iota.Address(generate_address()['addresses'][0])
         propose_bundle.send_unspent_inputs_to(unspent)
 
     # This will get the bundle hash
-    print ("Bundle finalize ...")
+    print("Bundle finalize ...")
 
     time_start_bundle_finz = time.time()
     propose_bundle.finalize()
@@ -113,7 +113,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     # If the transaction need sign, it will then sign-up the transaction
     # to fill up signature fragements
     if int(values) > 0:
-        print ("Signing...")
+        print("Signing...")
         propose_bundle.sign_inputs(iota.crypto.signing.KeyGenerator(SEED))
 
     trytes = propose_bundle.as_tryte_strings()
@@ -137,7 +137,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         tx_tryte = insert_to_trytes(2511, 2592, str(branch_hash), tx_tryte)
 
         # Do PoW for this transaction
-        print "Do POW for this transaction ..."
+        print("Do POW for this transaction ...")
 
         nonce = PoW_interface_search(PoWlib, tx_tryte, MWM)
         tx_tryte = insert_to_trytes(2646, 2673, str(nonce), tx_tryte)
@@ -145,11 +145,11 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         time_end_pow = time.time()
         elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
 
-        print "Prepare to broadcast ..."
+        print("Prepare to broadcast ...")
         try:
             api.broadcast_transactions([tx_tryte[0:2673]])
         except Exception as e:
-            print "Error: " + str(e.context)
+            print("Error: %s" % (str(e.context)))
 
     time_end_send = time.time()
     elapsed_send = time_end_send - time_start_send
@@ -158,7 +158,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         data = [{'platform': 'pi3', 'total_time': str(elapsed_send), 'elapsed_pow': str(
             elapsed_pow), 'elqpsed_bundle_finished': str(elapsed_bundle_finz)}]
         json_data = json.dumps(data)
-        print json_data
+        print(json_data)
 
 #        attach_debug_message_to_tangle(json_data)
     obj_txn = api.find_transactions(bundles=[propose_bundle.hash])
@@ -172,11 +172,11 @@ def attach_debug_message_to_tangle(data):
     value = 0
 
     # Get tips
-    print "Attaching debug data to tangle ... " + str(data)
+    print("Attaching debug data to tangle ... %s" % (str(data)))
     dict_tips = get_tips(0)
 
-    print "Debug bundle = " + \
-        str(send_transfer(tag, message, address, value, dict_tips, 0))
+    print("Debug bundle = %s" %
+        (str(send_transfer(tag, message, address, value, dict_tips, 0))))
 
 
 def find_transactions_by_tag(data):
