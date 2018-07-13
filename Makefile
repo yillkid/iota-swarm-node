@@ -4,6 +4,7 @@ DEPS += $(DCURL_LIB)
 
 all: $(DEPS)
 
+.PHONY: $(DCURL_LIB)
 $(DCURL_LIB): $(DCURL_DIR)
 	 git submodule update --init $^
 	$(MAKE) -C $^ config
