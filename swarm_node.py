@@ -56,7 +56,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     PoW_interface_init(PoWlib)
 
     # Set output transaction
-    print("Start to sransfer ... ")
+    print("Start to transfer ... ")
     time_start_send = time.time()
 
     propose_bundle = iota.ProposedBundle()
