@@ -13,9 +13,12 @@ PORT = 8000
 
 class RequestHandler(BaseHTTPRequestHandler):
 
-    def _set_headers(self):
+    def do_OPTIONS(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'X-Requested-With')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
     def do_GET(self):
@@ -24,7 +27,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             'data': 'Hello I am a swarm node.'
         }
 
-        self._set_headers()
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
         self.wfile.write(json.dumps(response))
 
     def do_POST(self):
@@ -59,7 +64,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         print("Result ... %s" % (str(result)))
 
-        self._set_headers()
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.end_headers()
         self.wfile.write(str(result).encode('utf-8'))
 
 
