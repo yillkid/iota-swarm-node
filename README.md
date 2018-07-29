@@ -17,9 +17,9 @@ $ sudo apt-get install python-pip python-setuptools python-dev python3-dev \
                        build-essential libssl-dev libffi-dev
 ```
 
-Install official Python library for IOTA core:
+Install Python package dependencies:
 ```shell
-$ pip install pyota
+$ pip install -r requirements.txt
 ```
 
 ## Build from scratch
