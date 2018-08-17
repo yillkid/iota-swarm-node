@@ -10,6 +10,7 @@ Most use cases for micropayments involve a single user or device interacting
 repeatedly with a few vendors.
 
 ## Prerequisites
+`Iota-swarm-node` is compatible with Python 3.5.
 
 Install dependent packages:
 ```shell
