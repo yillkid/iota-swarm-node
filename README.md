@@ -10,7 +10,7 @@ Most use cases for micropayments involve a single user or device interacting
 repeatedly with a few vendors.
 
 ## Prerequisites
-`Iota-swarm-node` is compatible with Python 3.5.
+`iota-swarm-node`, writing with Python3+ compatible code as well as depending on [Pyota](https://github.com/iotaledger/iota.lib.py) is theoretically available for bot Python 3.5 and 3.6; yet, our testing result indicates that the environment for Python 3.6 is invalid in this case. Details as [Pyota issue#203](https://github.com/iotaledger/iota.lib.py/issues/203).
 
 Install dependent packages:
 ```shell
