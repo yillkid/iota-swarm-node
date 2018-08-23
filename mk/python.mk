@@ -30,5 +30,15 @@ endif
 PY_CHECK_MOD_IOTA := $(shell python -c "import iota" 2>/dev/null && \
                        echo 1 || echo 0)
 ifneq ("$(PY_CHECK_MOD_IOTA)","1")
-    $(error "Dependency error $@ because PyOTA is not installed, to install the latest version: pip install pyota")
+    PIP := $(shell pip -V)
+    PIP_CHECK_VERSION := $(findstring python 3, $(PIP))
+
+ifndef PIP
+    $(error "PIP package doesn't pre-configured, try to install it.")
 endif
+
+ifndef PIP_CHECK_VERSION
+    PIP_FAVORED_VER = 3
+endif
+    $(error "PyOTA package doesn't pre-configured, install the latest version: pip$(PIP_FAVORED_VER) install pyota")
+endif # PIP
