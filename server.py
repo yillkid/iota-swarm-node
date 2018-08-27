@@ -30,7 +30,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
-        self.wfile.write(json.dumps(response))
+        self.wfile.write(str(json.dumps(response)).encode('utf-8'))
 
     def do_POST(self):
 
