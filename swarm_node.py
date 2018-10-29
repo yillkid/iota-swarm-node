@@ -91,7 +91,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         while (int(value_input) < int(values)):
             addy = iota.Address(dict_inputs['inputs'][index_input])
             addy.balance = dict_inputs['inputs'][index_input].balance
-            addy.key_index = 1
+            addy.key_index = dict_inputs['inputs'][index_input].key_index
             addy.security_level = TXN_SECURITY_LEVEL
 
             propose_bundle.add_inputs([addy])
@@ -120,8 +120,8 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
     trytes = propose_bundle.as_tryte_strings()
 
     # Get tips by getTransactionsToApprove
-    trunk_hash = dict_tips['branchTransaction']
-    branch_hash = dict_tips['trunkTransaction']
+    trunk_hash = dict_tips['trunkTransaction']
+    branch_hash = dict_tips['branchTransaction']
 
     # Do PoW (attach to tangle)
     elapsed_pow = 0
@@ -148,6 +148,9 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
         time_end_pow = time.time()
         elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
+
+        # Update previous tx hash for next transaction
+        trunk_hash = Transaction.from_tryte_string(tx_tryte[0:2673]).hash
 
         print("Prepare to broadcast ...")
         try:
