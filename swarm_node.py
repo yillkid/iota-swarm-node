@@ -152,8 +152,9 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         # Update previous tx hash for next transaction
         trunk_hash = Transaction.from_tryte_string(tx_tryte[0:2673]).hash
 
-        print("Prepare to broadcast ...")
+        print("Prepare to store and broadcast ...")
         try:
+            api.store_transactions([tx_tryte[0:2673]])
             api.broadcast_transactions([tx_tryte[0:2673]])
         except Exception as e:
             print("Error: %s" % (str(e.context)))
