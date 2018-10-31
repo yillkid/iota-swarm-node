@@ -145,8 +145,9 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         time_end_pow = time.time()
         elapsed_pow = elapsed_pow + (time_end_pow - time_start_pow)
 
-        print("Prepare to broadcast ...")
+        print("Prepare to store and broadcast ...")
         try:
+            api.store_transactions([tx_tryte[0:2673]])
             api.broadcast_transactions([tx_tryte[0:2673]])
         except Exception as e:
             print("Error: %s" % (str(e.context)))
