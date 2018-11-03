@@ -67,6 +67,40 @@ WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHE
 Duration: 1.91658091545 seconds
 ```
 
+## Build the docker image
+
+Before building the docker image, you need to build the iota-swarm-node.
+
+```shell
+  $ make
+```
+
+Build the docker image and tag with `iota-swarm-node`.
+
+```shell
+  $ docker build -t iota-swarm-node .
+```
+
+## Publish docker image to Docker Hub
+
+1. Login to the Docker Hub.
+
+```shell
+  $ docker login
+```
+
+2. Tag docker image.
+
+```shell
+  $ docker tag iota-swarm-node DOCKER_ID_USER/iota-swarm-node
+```
+
+3. Push image to Docker Hub.
+
+```shell
+  $ docker push DOCKER_ID_USER/iota-swarm-node
+```
+
 ## Licensing
 
 `iota-swarm-node` is freely redistributable under the two-clause BSD License.
