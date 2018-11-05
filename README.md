@@ -39,7 +39,7 @@ $ make check
 * Launch swarm node as server:
 
 ```shell
-$ python server.py 
+$ python server.py
 Listening on localhost:8000
 ```
 
@@ -49,7 +49,7 @@ $ python tests/generate_address.py
 Generating an unused address ...
 {u'addresses': [Address('OMAEMGRMASNBLYVFCRG9UARBBCWDIC9RGCOFTVAVJZDWISOHVMFLSW9ZL9FIJIHVVRYQLIMYBWEYP9WSX')]}
 Duration: 73.5027749538 seconds
-``` 
+```
 
 * Get tips from full node
 ```shell
@@ -57,14 +57,48 @@ $ python tests/get_tips.py
 Getting tips ...
 {u'duration': 484, u'branchTransaction': TransactionHash('QCPNKOXJXFERNNLTZZG9LBWDJQRLFIWDYNYQBHZJANJGXAADKNFTPWBWVDGHROVVVQWBKP9ROKRMZ9999'), u'trunkTransaction': TransactionHash('GEPJNFUNQGPDSFECJZGEWYYWYMGVWDCOELBKZQWILEUGGVHPNWFRLHNQHYKHCHPQWSQAXGYG9AIBA9999')}
 Duration: 0.960033893585 seconds
-``` 
+```
 
 * Send data (0 value transaction)
 ```shell
 $ python tests/send_transfer.py
-Send send transfer command ... 
+Send send transfer command ...
 WIAEHXJUVO9IDZXROJEDBQLFHVFLZCIQKPLLXCGWLNZFIUJZLBZACVLZPWAKUBYLDYRZKFIDKLSAHJHEY
 Duration: 1.91658091545 seconds
+```
+
+## Build the docker image
+
+Before building the docker image, you need to build the iota-swarm-node.
+
+```shell
+  $ make
+```
+
+Build the docker image and tag with `iota-swarm-node`.
+
+```shell
+  $ docker build -t iota-swarm-node .
+```
+
+## Publish docker image to Docker Hub
+
+1. Login to the Docker Hub.
+
+```shell
+  $ docker login
+```
+
+2. Tag docker image.
+
+```shell
+  $ docker tag iota-swarm-node DOCKER_ID_USER/iota-swarm-node
+```
+
+3. Push image to Docker Hub.
+
+```shell
+  $ docker push DOCKER_ID_USER/iota-swarm-node
 ```
 
 ## Licensing
