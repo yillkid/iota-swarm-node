@@ -154,8 +154,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
 
         print("Prepare to store and broadcast ...")
         try:
-            api.store_transactions([tx_tryte[0:2673]])
-            api.broadcast_transactions([tx_tryte[0:2673]])
+            api.broadcast_and_store([tx_tryte[0:2673]])
         except Exception as e:
             print("Error: %s" % (str(e.context)))
 
