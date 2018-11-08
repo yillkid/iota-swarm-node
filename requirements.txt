@@ -1,1 +1,3 @@
 PyOTA
+flask
+flask_cors
