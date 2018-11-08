@@ -5,6 +5,7 @@ from flask_cors import CORS
 
 from swarm_node import send_transfer, get_tips, generate_address
 from extensions.tangleid import main as extension_tangleid
+from utils import IotaJSONEncoder
 
 PORT = 8000
 
@@ -29,9 +30,13 @@ def execute_api():
     request_command = json.loads(request_data)
 
     if request_command['command'] == "generate_address":
-        result = generate_address()
+        address_result = generate_address()
+        result = json.dumps(address_result, cls=IotaJSONEncoder)
+
     elif request_command['command'] == "get_tips":
-        result = get_tips(int(request_command['type']))
+        tips_result = get_tips(int(request_command['type']))
+        result = json.dumps(tips_result, cls=IotaJSONEncoder)
+
     elif request_command['command'] == "send_transfer":
         if 'debug' not in request_command:
             debug = 0

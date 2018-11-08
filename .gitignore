@@ -3,3 +3,5 @@ log.txt
 *.pyc
 *.o
 *.o.d
+
+.pytest_cache/

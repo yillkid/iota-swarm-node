@@ -2,6 +2,7 @@ import time
 import json
 from swarm_node import get_tips, send_transfer, \
     find_transactions_by_tag, get_txn_msg
+from utils import IotaJSONEncoder
 
 address = "BXEOYAONFPBGKEUQZDUZZZODHWJDWHEOYY9AENYF9VNLXZHXBOODCOTYXW9MGGINTEJPLK9AGOPTPODVX"
 
@@ -90,7 +91,7 @@ def login(data):
 
     list_result = find_transactions_by_tag(uuid)
 
-    return str(list_result)
+    return json.dumps(list_result['hashes'], cls=IotaJSONEncoder)
 
 
 def new_user(data):
@@ -136,7 +137,7 @@ def get_all_notifies(data):
     for obj in list_claims:
         list_output.append(str(obj))
 
-    return str(list_output)
+    return json.dumps(list_output)
 
 
 def revoke_claim(data):
@@ -161,7 +162,7 @@ def get_all_revoke_claims(data):
     #list_result = api.find_transactions(tags = [uuid])
     list_result = find_transactions_by_tag(uuid)
 
-    return str(list_result)
+    return json.dumps(list_result['hashes'], cls=IotaJSONEncoder)
 
 
 def new_group(data):
