@@ -67,7 +67,7 @@ def send_transfer(tag, messages, address, values, dict_tips, debug=0):
         address=iota.Address(address),
         value=values,
         tag=iota.Tag(tag),
-        message=TryteString.from_string(messages)
+        message=TryteString.from_unicode(messages)
     )
 
     propose_bundle.add_transaction(txn_output)
@@ -209,7 +209,7 @@ def get_txn_msg(data):
     txn = Transaction.from_tryte_string(trytes_txn)
 
     try:
-        message = TryteString(txn.signature_message_fragment).as_string()
+        message = TryteString(txn.signature_message_fragment).decode()
     except BaseException:
         return ""
 
